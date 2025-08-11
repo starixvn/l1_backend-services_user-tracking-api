@@ -1,7 +1,7 @@
 import { IsString, IsBoolean, IsDate, IsOptional, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class CreateUserGameSessionDto {
+export class CreateDto {
   @IsString()
   readonly ssoToken: string;
 

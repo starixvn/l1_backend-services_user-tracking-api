@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserGameSessionController } from './user-game-session.controller';
 import { UserGameSessionService } from './user-game-session.service';
-import { CreateUserGameSessionDto } from './models/user-game-session.dto';
+import { CreateDto } from './models/user-game-session.dto';
 
 describe('UserGameSessionController', () => {
   let controller: UserGameSessionController;
@@ -23,10 +23,10 @@ describe('UserGameSessionController', () => {
     service = module.get<UserGameSessionService>(UserGameSessionService);
   });
 
-  describe('insertUserGameSession', () => {
+  describe('create', () => {
     it('should call service and return success response', async () => {
       // Arrange
-      const inputDto: CreateUserGameSessionDto = {
+      const inputDto: CreateDto = {
         ssoToken: 'token',
         sessionId: 'session',
         owSeq: 'owSeq',
@@ -64,10 +64,10 @@ describe('UserGameSessionController', () => {
       const mockUserGameSession = { _id: 'test-id', ...inputDto };
       jest.spyOn(service, 'saveUserGameSession').mockResolvedValue(mockUserGameSession as any);
       // Act
-      const result = await controller.insertUserGameSession(inputDto);
+      const result = await controller.create(inputDto);
       // Assert
       expect(service.saveUserGameSession).toHaveBeenCalledWith({
-        createUserGameSessionDto: inputDto,
+        createDto: inputDto,
       });
       expect(result).toEqual(expectedResponse);
     });

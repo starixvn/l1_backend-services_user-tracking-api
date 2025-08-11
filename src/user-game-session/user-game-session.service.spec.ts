@@ -3,7 +3,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserGameSessionService } from './user-game-session.service';
 import { UserGameSession, UserGameSessionDocument } from './models/user-game-session.schema';
-import { CreateUserGameSessionDto } from './models/user-game-session.dto';
+import { CreateDto } from './models/user-game-session.dto';
 
 describe('UserGameSessionService', () => {
   let service: UserGameSessionService;
@@ -29,7 +29,7 @@ describe('UserGameSessionService', () => {
   describe('saveUserGameSession', () => {
     it('should create and save user game session with correct input', async () => {
       // Arrange
-      const inputDto: CreateUserGameSessionDto = {
+      const inputDto: CreateDto = {
         ssoToken: 'd05f1557-06a2-4b36-9c9f-30a80608cc96',
         sessionId: 'tLvCKJxi10nAzekWPLzhbfPduOJwTyYf_ONEworksVGCash_880',
         owSeq: undefined,
@@ -66,7 +66,7 @@ describe('UserGameSessionService', () => {
       const mockDocument = { save: mockSave };
       (mockModel as jest.MockedFunction<any>).mockReturnValue(mockDocument);
       // Act
-      const result = await service.saveUserGameSession({ createUserGameSessionDto: inputDto });
+      const result = await service.saveUserGameSession({ createDto: inputDto });
       // Assert
       expect(mockModel).toHaveBeenCalledWith(inputDto);
       expect(mockSave).toHaveBeenCalled();
@@ -75,7 +75,7 @@ describe('UserGameSessionService', () => {
 
     it('should handle save errors', async () => {
       // Arrange
-      const inputDto: CreateUserGameSessionDto = {
+      const inputDto: CreateDto = {
         ssoToken: 'token',
         sessionId: 'session',
         username: 'user',
@@ -110,9 +110,9 @@ describe('UserGameSessionService', () => {
       const mockDocument = { save: mockSave };
       (mockModel as jest.MockedFunction<any>).mockReturnValue(mockDocument);
       // Act & Assert
-      await expect(
-        service.saveUserGameSession({ createUserGameSessionDto: inputDto }),
-      ).rejects.toThrow('Database error');
+      await expect(service.saveUserGameSession({ createDto: inputDto })).rejects.toThrow(
+        'Database error',
+      );
       expect(mockModel).toHaveBeenCalledWith(inputDto);
       expect(mockSave).toHaveBeenCalled();
     });
