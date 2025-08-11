@@ -40,9 +40,32 @@
 }
 ```
 
+## Response Examples
+
+### Success Response (201 Created)
+
+```json
+{
+  "errorCode": 0,
+  "message": "created new user game session"
+}
+```
+
+### Error Response (4xx/5xx)
+
+```json
+{
+  "errorCode": 400,
+  "message": "Validation failed",
+  "errors": ["ssoToken should not be empty"]
+}
+```
+
 ## Notes
 
 - All fields are required unless specified as optional in the API documentation.
 - `ssoTime` and `recheckInTime` must be ISO 8601 date strings (e.g., "2025-08-11T02:38:17.558Z").
 - `gameId` and `gameConfigType` are required number fields.
 - The API will automatically convert date strings to Date objects during validation.
+- Success responses return HTTP 201 status with errorCode 0.
+- Error responses maintain the existing error format with appropriate errorCode and message.

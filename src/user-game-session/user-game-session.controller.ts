@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, HttpStatus, HttpCode } from '@nestjs/common';
 import { UserGameSessionService } from './user-game-session.service';
 import { CreateUserGameSessionDto } from './models/user-game-session.dto';
 
@@ -13,7 +13,12 @@ export class UserGameSessionController {
    * Insert a new user game session.
    */
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   async insertUserGameSession(@Body() createUserGameSessionDto: CreateUserGameSessionDto) {
-    return this.userGameSessionService.saveUserGameSession({ createUserGameSessionDto });
+    await this.userGameSessionService.saveUserGameSession({ createUserGameSessionDto });
+    return {
+      errorCode: 0,
+      message: 'created new user game session',
+    };
   }
 }
