@@ -1,0 +1,48 @@
+# Source files (not needed in published package)
+src/
+
+# Development files
+.git/
+.gitignore
+.npmignore
+
+# Build tools
+tsconfig.json
+.eslintrc*
+.prettierrc*
+jest.config.*
+
+# Development dependencies
+node_modules/
+
+# Test files
+test/
+tests/
+__tests__/
+*.test.ts
+*.spec.ts
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+
+# Documentation (keep only the main README)
+docs/
