@@ -43,4 +43,4 @@ lerna-debug.log*
 /logs
 
 # Generated API client
-/api-client/ 
+/api-client/src/ 

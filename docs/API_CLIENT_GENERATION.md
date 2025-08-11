@@ -19,7 +19,7 @@ This command will:
 
 - Fetch the OpenAPI specification from `http://localhost:5000/api-json`
 - Generate a TypeScript API client using axios
-- Output the generated client to `api-client/api-client.ts`
+- Output the generated client to `api-client/src/`
 
 ### Generate API Client (Watch Mode)
 
@@ -38,7 +38,7 @@ This command will:
 The API client generation uses the following settings:
 
 - **Client**: @hey-api/client-axios
-- **Output**: `api-client/` directory
+- **Output**: `api-client/src/` directory
 - **Features**:
   - Full TypeScript support with generated types
   - Axios-based HTTP client
@@ -49,8 +49,8 @@ The API client generation uses the following settings:
 After generating the API client, you can import and use it in your code:
 
 ```typescript
-import { createClient } from '../api-client/client';
-import { userGameSessionControllerInsertUserGameSession } from '../api-client/sdk.gen';
+import { createClient } from '../api-client/src/client';
+import { userGameSessionControllerInsertUserGameSession } from '../api-client/src/sdk.gen';
 
 const client = createClient({
   baseURL: 'http://localhost:5000',
@@ -65,8 +65,31 @@ const response = await userGameSessionControllerInsertUserGameSession({
 });
 ```
 
+## Publishing the API Client Package
+
+The API client is structured as a separate npm package in the `api-client/` directory. To publish it:
+
+1. **Build the package**:
+
+   ```bash
+   cd api-client
+   npm run build
+   ```
+
+2. **Publish to npm**:
+
+   ```bash
+   npm publish
+   ```
+
+3. **Install in other projects**:
+   ```bash
+   npm install @user-tracking/api-client
+   ```
+
 ## Notes
 
-- The generated API client file is automatically ignored by git (see `.gitignore`)
+- The generated API client files are automatically ignored by git (see `.gitignore`)
 - Always regenerate the client after making changes to your API endpoints
 - The generated client provides full TypeScript support with proper types for requests and responses
+- The package can be published independently and used in other projects

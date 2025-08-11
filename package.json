@@ -25,8 +25,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prepare": "husky install",
     "reg": "npm set registry https://npm.lumigame.com",
-    "generate:api-client": "openapi-ts --input http://localhost:5000/api-json --output api-client --client @hey-api/client-axios",
-    "generate:api-client:dev": "openapi-ts --input http://localhost:5000/api-json --output api-client --client @hey-api/client-axios --watch"
+    "generate:api-client": "openapi-ts --input http://localhost:5000/api-json --output api-client/src --client @hey-api/client-axios",
+    "generate:api-client:dev": "openapi-ts --input http://localhost:5000/api-json --output api-client/src --client @hey-api/client-axios --watch"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
