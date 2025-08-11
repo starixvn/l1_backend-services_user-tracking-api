@@ -23,8 +23,8 @@ async function bootstrap(): Promise<void> {
 
   // Set up Swagger
   const config = new DocumentBuilder()
-    .setTitle('Template API')
-    .setDescription('Template API')
+    .setTitle('User Tracking API')
+    .setDescription('User Tracking API')
     .setVersion('1.0')
     .addTag('health-check', 'Health check endpoints')
     .build();
