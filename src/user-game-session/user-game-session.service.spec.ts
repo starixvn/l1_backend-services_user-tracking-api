@@ -102,8 +102,8 @@ describe('UserGameSessionService', () => {
         disableJackpotGames: false,
         operatorToken: 'token',
         disableAward: false,
-        gameId: 123,
-        gameConfigType: 1,
+        gameId: 456,
+        gameConfigType: 2,
       };
       const mockError = new Error('Database error');
       const mockSave = jest.fn().mockRejectedValue(mockError);

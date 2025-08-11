@@ -1,4 +1,5 @@
 import { IsString, IsBoolean, IsDate, IsOptional, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateUserGameSessionDto {
   @IsString()
@@ -18,9 +19,11 @@ export class CreateUserGameSessionDto {
   readonly memberId: string;
 
   @IsDate()
+  @Type(() => Date)
   readonly ssoTime: Date;
 
   @IsDate()
+  @Type(() => Date)
   readonly recheckInTime: Date;
 
   @IsString()

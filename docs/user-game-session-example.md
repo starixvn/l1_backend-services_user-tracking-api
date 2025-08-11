@@ -35,13 +35,14 @@
   "disableJackpotGames": false,
   "operatorToken": "ONEworksVGCashToken",
   "disableAward": false,
-  "gameId": "game-123",
-  "gameConfigType": "standard"
+  "gameId": 123,
+  "gameConfigType": 1
 }
 ```
 
 ## Notes
 
 - All fields are required unless specified as optional in the API documentation.
-- `ssoTime` and `recheckInTime` must be ISO 8601 date strings.
-- `gameId` and `gameConfigType` are required for this endpoint.
+- `ssoTime` and `recheckInTime` must be ISO 8601 date strings (e.g., "2025-08-11T02:38:17.558Z").
+- `gameId` and `gameConfigType` are required number fields.
+- The API will automatically convert date strings to Date objects during validation.
