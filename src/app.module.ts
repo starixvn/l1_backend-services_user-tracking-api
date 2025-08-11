@@ -6,6 +6,7 @@ import { SentryModule } from '@sentry/nestjs/setup';
 import { CoreModule } from './core/core.module';
 import { AllExceptionsFilter } from './core/filters/all-exceptions.filter';
 import { LoggerService } from './core/logger/logger.service';
+import { UserGameSessionModule } from './user-game-session/user-game-session.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { LoggerService } from './core/logger/logger.service';
       },
     }),
     CoreModule,
+    UserGameSessionModule,
   ],
   providers: [
     {
