@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema({ collection: 'user-game-sessions' })
+@Schema({ collection: 'user_game_sessions' })
 export class UserGameSession {
   @Prop({ required: true })
   ssoToken: string;
