@@ -1,26 +1,42 @@
 import { Body, Controller, Post, HttpStatus, HttpCode } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { UserGameSessionService } from './user-game-session.service';
-import { CreateDto } from './models/user-game-session.dto';
+import { CreateDto, UpdateDto } from './models/user-game-session.dto';
 
 /**
  * Controller for user game session operations.
  */
-@Controller('user-game-session')
+@Controller('game')
 export class UserGameSessionController {
   constructor(private readonly userGameSessionService: UserGameSessionService) {}
 
   /**
    * Insert a new user game session.
    */
-  @Post()
+  @Post('sign-in')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Create session' })
-  async create(@Body() createDto: CreateDto) {
-    await this.userGameSessionService.saveUserGameSession({ createDto });
+  async signIn(@Body() createDto: CreateDto) {
+    await this.userGameSessionService.signIn({ createDto });
+
     return {
       errorCode: 0,
       message: 'created new user game session',
+    };
+  }
+
+  /**
+   * Update a user game session.
+   */
+  @Post('sign-out')
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: 'Update session' })
+  async signOut(@Body() updateDto: UpdateDto) {
+    await this.userGameSessionService.signOut({ updateDto });
+
+    return {
+      errorCode: 0,
+      message: 'updated user game session',
     };
   }
 }

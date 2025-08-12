@@ -14,7 +14,8 @@ describe('UserGameSessionController', () => {
         {
           provide: UserGameSessionService,
           useValue: {
-            saveUserGameSession: jest.fn(),
+            signIn: jest.fn(),
+            signOut: jest.fn(),
           },
         },
       ],
@@ -27,13 +28,9 @@ describe('UserGameSessionController', () => {
     it('should call service and return success response', async () => {
       // Arrange
       const inputDto: CreateDto = {
-        ssoToken: 'token',
         sessionId: 'session',
-        owSeq: 'owSeq',
         username: 'user',
         memberId: 'member',
-        ssoTime: new Date(),
-        recheckInTime: new Date(),
         ip: '127.0.0.1',
         browserUserAgent: 'agent',
         siteId: 'site',
@@ -56,20 +53,25 @@ describe('UserGameSessionController', () => {
         disableAward: false,
         gameId: 123,
         gameConfigType: 1,
+        appType: 1,
       };
+
       const expectedResponse = {
         errorCode: 0,
         message: 'created new user game session',
       };
+
       const mockUserGameSession = { _id: 'test-id', ...inputDto };
-      jest.spyOn(service, 'saveUserGameSession').mockResolvedValue(mockUserGameSession as any);
+      jest.spyOn(service, 'signIn').mockResolvedValue(mockUserGameSession as any);
+
       // Act
-      const result = await controller.create(inputDto);
+      const result = await controller.signIn(inputDto);
+
       // Assert
-      expect(service.saveUserGameSession).toHaveBeenCalledWith({
+      expect(service.signIn).toHaveBeenCalledWith({
         createDto: inputDto,
       });
-      expect(result).toEqual(expectedResponse);
+      expect(result).toStrictEqual(expectedResponse);
     });
   });
 });

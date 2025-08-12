@@ -1,30 +1,14 @@
-import { IsString, IsBoolean, IsDate, IsOptional, IsNumber } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsString, IsBoolean, IsNumber } from 'class-validator';
 
 export class CreateDto {
   @IsString()
-  readonly ssoToken: string;
-
-  @IsString()
   readonly sessionId: string;
-
-  @IsOptional()
-  @IsString()
-  readonly owSeq?: string;
 
   @IsString()
   readonly username: string;
 
   @IsString()
   readonly memberId: string;
-
-  @IsDate()
-  @Type(() => Date)
-  readonly ssoTime: Date;
-
-  @IsDate()
-  @Type(() => Date)
-  readonly recheckInTime: Date;
 
   @IsString()
   readonly ip: string;
@@ -87,8 +71,19 @@ export class CreateDto {
   readonly disableAward: boolean;
 
   @IsNumber()
+  readonly appType: number;
+
+  @IsNumber()
   readonly gameId: number;
 
   @IsNumber()
   readonly gameConfigType: number;
+}
+
+export class UpdateDto {
+  @IsString()
+  readonly sessionId: string;
+
+  @IsNumber()
+  readonly gameId: number;
 }

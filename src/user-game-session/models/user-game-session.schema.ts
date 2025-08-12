@@ -4,25 +4,13 @@ import { Document } from 'mongoose';
 @Schema({ collection: 'user_game_sessions' })
 export class UserGameSession {
   @Prop({ required: true })
-  ssoToken: string;
-
-  @Prop({ required: true })
   sessionId: string;
-
-  @Prop()
-  owSeq?: string;
 
   @Prop({ required: true })
   username: string;
 
   @Prop({ required: true })
   memberId: string;
-
-  @Prop({ required: true })
-  ssoTime: Date;
-
-  @Prop({ required: true })
-  recheckInTime: Date;
 
   @Prop({ required: true })
   ip: string;
@@ -85,10 +73,19 @@ export class UserGameSession {
   disableAward: boolean;
 
   @Prop({ required: true })
+  appType: number;
+
+  @Prop({ required: true })
   gameId: number;
 
   @Prop({ required: true })
   gameConfigType: number;
+
+  @Prop({ required: true })
+  signInGameTime: Date;
+
+  @Prop()
+  signOutGameTime: Date;
 }
 
 export type UserGameSessionDocument = UserGameSession & Document;

@@ -26,17 +26,13 @@ describe('UserGameSessionService', () => {
     mockModel = module.get<Model<UserGameSessionDocument>>(getModelToken(UserGameSession.name));
   });
 
-  describe('saveUserGameSession', () => {
+  describe('signIn', () => {
     it('should create and save user game session with correct input', async () => {
       // Arrange
       const inputDto: CreateDto = {
-        ssoToken: 'd05f1557-06a2-4b36-9c9f-30a80608cc96',
         sessionId: 'tLvCKJxi10nAzekWPLzhbfPduOJwTyYf_ONEworksVGCash_880',
-        owSeq: undefined,
         username: 'ONEworksVGCash_880',
         memberId: '880',
-        ssoTime: new Date('2025-08-11T02:38:17.558Z'),
-        recheckInTime: new Date('2025-08-11T02:40:05.286Z'),
         ip: '10.10.50.123',
         browserUserAgent:
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
@@ -60,28 +56,26 @@ describe('UserGameSessionService', () => {
         disableAward: false,
         gameId: 123,
         gameConfigType: 1,
+        appType: 1,
       };
       const expectedResult = { _id: '68995799e891f7911fbdd6b3', ...inputDto };
       const mockSave = jest.fn().mockResolvedValue(expectedResult);
       const mockDocument = { save: mockSave };
       (mockModel as jest.MockedFunction<any>).mockReturnValue(mockDocument);
       // Act
-      const result = await service.saveUserGameSession({ createDto: inputDto });
+      const result = await service.signIn({ createDto: inputDto });
       // Assert
       expect(mockModel).toHaveBeenCalledWith(inputDto);
       expect(mockSave).toHaveBeenCalled();
-      expect(result).toEqual(expectedResult);
+      expect(result).toBe(true);
     });
 
     it('should handle save errors', async () => {
       // Arrange
       const inputDto: CreateDto = {
-        ssoToken: 'token',
         sessionId: 'session',
         username: 'user',
         memberId: 'member',
-        ssoTime: new Date(),
-        recheckInTime: new Date(),
         ip: '127.0.0.1',
         browserUserAgent: 'agent',
         siteId: 'site',
@@ -104,15 +98,14 @@ describe('UserGameSessionService', () => {
         disableAward: false,
         gameId: 456,
         gameConfigType: 2,
+        appType: 1,
       };
       const mockError = new Error('Database error');
       const mockSave = jest.fn().mockRejectedValue(mockError);
       const mockDocument = { save: mockSave };
       (mockModel as jest.MockedFunction<any>).mockReturnValue(mockDocument);
       // Act & Assert
-      await expect(service.saveUserGameSession({ createDto: inputDto })).rejects.toThrow(
-        'Database error',
-      );
+      await expect(service.signIn({ createDto: inputDto })).rejects.toThrow('Database error');
       expect(mockModel).toHaveBeenCalledWith(inputDto);
       expect(mockSave).toHaveBeenCalled();
     });
