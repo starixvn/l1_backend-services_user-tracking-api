@@ -1,107 +1,157 @@
-# API Client
+# User Tracking API Client
 
-This directory contains the automatically generated API client using `@hey-api/openapi-ts`.
+A TypeScript client for the User Tracking API with support for game session management.
 
-## Files
-
-- `src/index.ts` - Main export file
-- `src/sdk.gen.ts` - Generated SDK functions
-- `src/types.gen.ts` - Generated TypeScript types
-- `src/client.gen.ts` - Generated HTTP client
-- `src/core/` - Core utilities
-- `src/client/` - Client implementation
-
-## Usage Example
-
-### Local Development
-
-```typescript
-import { createClient } from './src/client';
-import {
-  userGameSessionControllerInsertUserGameSession,
-  healthCheckControllerHealthCheck,
-} from './src/sdk.gen';
-
-// Initialize the client
-const client = createClient({
-  baseURL: 'http://localhost:5000',
-  headers: {
-    Authorization: 'Bearer your-token-here',
-  },
-});
-
-// Example: Create a user game session
-const createSession = async () => {
-  try {
-    const response = await userGameSessionControllerInsertUserGameSession({
-      client,
-      data: {
-        userId: 'user123',
-        gameId: 'game456',
-        sessionData: {
-          startTime: new Date().toISOString(),
-          // ... other session data
-        },
-      },
-    });
-
-    console.log('Session created:', response.data);
-  } catch (error) {
-    console.error('Error creating session:', error);
-  }
-};
-
-// Example: Check API health
-const checkHealth = async () => {
-  try {
-    const response = await healthCheckControllerHealthCheck({
-      client,
-    });
-
-    console.log('API Health:', response.data);
-  } catch (error) {
-    console.error('Error checking health:', error);
-  }
-};
-```
-
-### Published Package Usage
-
-After publishing the package, you can use it in other projects:
+## Installation
 
 ```bash
-npm install @user-tracking/api-client
+npm install @sc/user-tracking-client
 ```
+
+## Usage
+
+### Basic Setup
 
 ```typescript
-import { createClient } from '@user-tracking/api-client';
-import {
-  userGameSessionControllerInsertUserGameSession,
-  healthCheckControllerHealthCheck,
-} from '@user-tracking/api-client';
+import { TrackingClient } from '@sc/user-tracking-client';
 
-const client = createClient({
-  baseURL: 'https://your-api-domain.com',
-  headers: {
-    Authorization: 'Bearer your-token-here',
-  },
-});
-
-// Use the same functions as above
+const client = new TrackingClient('http://localhost:3000');
 ```
 
-## Regeneration
+### Sign In
 
-To regenerate this client after API changes:
+```typescript
+import { TrackingClient, SignInReq } from '@sc/user-tracking-client';
 
-1. Start your NestJS application: `npm run start:dev`
-2. Run: `npm run generate:api-client`
+const client = new TrackingClient('http://localhost:3000');
 
-For development with auto-regeneration: `npm run generate:api-client:dev`
+const signInData: SignInReq = {
+  sessionId: 'session-123',
+  username: 'testuser',
+  memberId: 'member-456',
+  ip: '192.168.1.1',
+  browserUserAgent: 'Mozilla/5.0...',
+  siteId: 'site-789',
+  userId: 'user-101',
+  language: 'en',
+  currencyCode: 'USD',
+  currencyName: 'US Dollar',
+  currencyGroupId: 'group-1',
+  isTestCurrency: false,
+  multiplier: 1,
+  partnerId: 'partner-202',
+  memberName: 'Test Member',
+  siteName: 'Test Site',
+  system: 1,
+  operatorId: 'op-303',
+  playerId: 'player-404',
+  playerName: 'Test Player',
+  disableJackpotGames: false,
+  operatorToken: 'token-505',
+  disableAward: false,
+  appType: 1,
+  gameId: 1001,
+  gameConfigType: 1,
+};
 
-## Publishing
+try {
+  const result = await client.signIn(signInData);
+  console.log('Sign in result:', result);
+} catch (error) {
+  console.error('Error:', error);
+}
+```
 
-To publish this package:
+### Sign Out
 
-1. Build the package: `npm run build`
-2. Publish to npm: `npm publish`
+```typescript
+import { TrackingClient, SignOutReq } from '@sc/user-tracking-client';
+
+const client = new TrackingClient('http://localhost:3000');
+
+const signOutData: SignOutReq = {
+  sessionId: 'session-123',
+  gameId: 1001,
+};
+
+try {
+  const result = await client.signOut(signOutData);
+  console.log('Sign out result:', result);
+} catch (error) {
+  console.error('Error:', error);
+}
+```
+
+### Custom Configuration
+
+```typescript
+import { TrackingClient } from '@sc/user-tracking-client';
+
+const client = new TrackingClient('http://localhost:3000', {
+  timeout: 60000,
+  headers: {
+    Authorization: 'Bearer your-token',
+    'Custom-Header': 'custom-value',
+  },
+});
+```
+
+## API Reference
+
+### TrackingClient
+
+Main client class for interacting with the User Tracking API.
+
+#### Constructor
+
+```typescript
+constructor(baseURL: string, config?: AxiosRequestConfig)
+```
+
+- `baseURL`: Base URL for the API
+- `config`: Optional axios configuration
+
+#### Methods
+
+##### signIn(data: SignInReq): Promise<ApiResp>
+
+Creates a new user game session.
+
+##### signOut(data: SignOutReq): Promise<ApiResp>
+
+Updates an existing user game session.
+
+### Types
+
+#### SignInReq
+
+Interface for sign-in request data.
+
+#### SignOutReq
+
+Interface for sign-out request data.
+
+#### ApiResp
+
+Interface for API response data.
+
+## Development
+
+### Build
+
+```bash
+npm run build
+```
+
+### Watch Mode
+
+```bash
+npm run build:watch
+```
+
+### Lint
+
+```bash
+npm run lint
+npm run lint:fix
+```
