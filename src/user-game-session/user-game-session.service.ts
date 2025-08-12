@@ -17,6 +17,7 @@ export class UserGameSessionService {
   async signIn({ createDto }: { createDto: CreateDto }): Promise<boolean> {
     const createdSession = new this.userGameSessionModel(createDto);
     createdSession.signInGameTime = new Date();
+    createdSession.appType = createDto.system;
 
     return (await createdSession.save()) ? true : false;
   }
