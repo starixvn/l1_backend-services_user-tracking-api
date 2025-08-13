@@ -14,7 +14,6 @@ describe('UserGameSessionService', () => {
   beforeEach(async () => {
     const mockModelConstructor = jest.fn();
     mockLoggerService = {
-      addBreadcrumb: jest.fn(),
       captureException: jest.fn(),
       captureMessage: jest.fn(),
     };

@@ -80,6 +80,12 @@ export class UserGameSession {
 
   @Prop()
   signOutGameTime: Date;
+
+  @Prop()
+  signInBalance: number;
+
+  @Prop()
+  signOutBalance: number;
 }
 
 export type UserGameSessionDocument = UserGameSession & Document;

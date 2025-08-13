@@ -69,6 +69,9 @@ export class CreateDto {
 
   @IsNumber()
   readonly gameConfigType: number;
+
+  @IsNumber()
+  readonly balance?: number;
 }
 
 export class UpdateDto {
@@ -77,4 +80,7 @@ export class UpdateDto {
 
   @IsNumber()
   readonly gameId: number;
+
+  @IsNumber()
+  readonly balance?: number;
 }

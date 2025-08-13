@@ -18,22 +18,14 @@ export class UserGameSessionService {
 
   async signIn({ createDto }: { createDto: CreateDto }): Promise<boolean> {
     try {
-      this.loggerService.addBreadcrumb('Starting sign-in process', 'user-game-session', 'info', {
-        sessionId: createDto.sessionId,
-        gameId: createDto.gameId,
-      });
-
       const createdSession = new this.userGameSessionModel(createDto);
       createdSession.signInGameTime = new Date();
       createdSession.appType = createDto.system;
+      createdSession.signInBalance = createDto.balance ?? 0;
 
       const savedSession = await createdSession.save();
 
       if (savedSession) {
-        this.loggerService.addBreadcrumb('Sign-in successful', 'user-game-session', 'info', {
-          sessionId: createDto.sessionId,
-          gameId: createDto.gameId,
-        });
         return true;
       } else {
         this.loggerService.captureMessage('Failed to save user game session', 'error', {
@@ -50,42 +42,23 @@ export class UserGameSessionService {
         userId: createDto.userId,
       });
 
-      this.loggerService.addBreadcrumb(
-        'Sign-in failed with exception',
-        'user-game-session',
-        'error',
-        {
-          sessionId: createDto.sessionId,
-          error: error.message,
-        },
-      );
-
       return false;
     }
   }
 
   async signOut({ updateDto }: { updateDto: UpdateDto }): Promise<boolean> {
     try {
-      this.loggerService.addBreadcrumb('Starting sign-out process', 'user-game-session', 'info', {
-        sessionId: updateDto.sessionId,
-        gameId: updateDto.gameId,
-      });
-
       const updatedSession = await this.userGameSessionModel.findOneAndUpdate(
         {
           sessionId: updateDto.sessionId,
           gameId: updateDto.gameId,
           signOutGameTime: { $eq: null },
         },
-        { $set: { signOutGameTime: new Date() } },
+        { $set: { signOutGameTime: new Date(), signOutBalance: updateDto.balance ?? 0 } },
         { new: true },
       );
 
       if (updatedSession) {
-        this.loggerService.addBreadcrumb('Sign-out successful', 'user-game-session', 'info', {
-          sessionId: updateDto.sessionId,
-          gameId: updateDto.gameId,
-        });
         return true;
       } else {
         this.loggerService.captureMessage('Failed to find session for sign-out', 'error', {
@@ -100,16 +73,6 @@ export class UserGameSessionService {
         sessionId: updateDto.sessionId,
         gameId: updateDto.gameId,
       });
-
-      this.loggerService.addBreadcrumb(
-        'Sign-out failed with exception',
-        'user-game-session',
-        'error',
-        {
-          sessionId: updateDto.sessionId,
-          error: error.message,
-        },
-      );
 
       return false;
     }
