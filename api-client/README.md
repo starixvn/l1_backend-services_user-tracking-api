@@ -49,6 +49,7 @@ const signInData: SignInReq = {
   disableAward: false,
   gameId: 1001,
   gameConfigType: 1,
+  balance: 1000,
 };
 
 try {
@@ -73,6 +74,7 @@ const client = new TrackingClient('http://localhost:3000');
 const signOutData: SignOutReq = {
   sessionId: 'session-123',
   gameId: 1001,
+  balance: 1500,
 };
 
 try {

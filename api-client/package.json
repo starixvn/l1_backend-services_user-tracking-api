@@ -1,6 +1,6 @@
 {
   "name": "@sc/user-tracking-client",
-  "version": "0.0.2-beta.4",
+  "version": "0.0.2-beta.5",
   "description": "User Tracking Api Client",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
