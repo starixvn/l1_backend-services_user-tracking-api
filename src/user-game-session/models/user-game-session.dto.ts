@@ -1,4 +1,4 @@
-import { IsString, IsBoolean, IsNumber } from 'class-validator';
+import { IsString, IsBoolean, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateDto {
   @IsString()
@@ -70,6 +70,7 @@ export class CreateDto {
   @IsNumber()
   readonly gameConfigType: number;
 
+  @IsOptional()
   @IsNumber()
   readonly balance?: number;
 }
@@ -81,6 +82,7 @@ export class UpdateDto {
   @IsNumber()
   readonly gameId: number;
 
+  @IsOptional()
   @IsNumber()
   readonly balance?: number;
 }
