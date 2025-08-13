@@ -17,7 +17,14 @@ export class UserGameSessionController {
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Create session' })
   async signIn(@Body() createDto: CreateDto) {
-    await this.userGameSessionService.signIn({ createDto });
+    const result = await this.userGameSessionService.signIn({ createDto });
+
+    if (!result) {
+      return {
+        errorCode: 1,
+        message: 'failed to create user game session',
+      };
+    }
 
     return {
       errorCode: 0,
@@ -32,7 +39,14 @@ export class UserGameSessionController {
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Update session' })
   async signOut(@Body() updateDto: UpdateDto) {
-    await this.userGameSessionService.signOut({ updateDto });
+    const result = await this.userGameSessionService.signOut({ updateDto });
+
+    if (!result) {
+      return {
+        errorCode: 1,
+        message: 'failed to update user game session',
+      };
+    }
 
     return {
       errorCode: 0,

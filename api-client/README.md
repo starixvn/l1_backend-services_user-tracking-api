@@ -53,9 +53,13 @@ const signInData: SignInReq = {
 
 try {
   const result = await client.signIn(signInData);
-  console.log('Sign in result:', result);
+  if (result.errorCode === 0) {
+    console.log('Sign in successful:', result.message);
+  } else {
+    console.error('Sign in failed:', result.message);
+  }
 } catch (error) {
-  console.error('Error:', error);
+  console.error('Network error:', error);
 }
 ```
 
@@ -73,9 +77,13 @@ const signOutData: SignOutReq = {
 
 try {
   const result = await client.signOut(signOutData);
-  console.log('Sign out result:', result);
+  if (result.errorCode === 0) {
+    console.log('Sign out successful:', result.message);
+  } else {
+    console.error('Sign out failed:', result.message);
+  }
 } catch (error) {
-  console.error('Error:', error);
+  console.error('Network error:', error);
 }
 ```
 
@@ -131,6 +139,9 @@ Interface for sign-out request data.
 #### ApiResp
 
 Interface for API response data.
+
+- `errorCode`: 0 for success, 1 for failure
+- `message`: Descriptive message about the operation result
 
 ## Development
 
