@@ -5,16 +5,10 @@ export class CreateDto {
   readonly sessionId: string;
 
   @IsString()
-  readonly username: string;
-
-  @IsString()
-  readonly memberId: string;
+  readonly browserUserAgent: string;
 
   @IsString()
   readonly ip: string;
-
-  @IsString()
-  readonly browserUserAgent: string;
 
   @IsString()
   readonly siteId: string;
@@ -41,9 +35,6 @@ export class CreateDto {
   readonly multiplier: number;
 
   @IsString()
-  readonly partnerId: string;
-
-  @IsString()
   readonly memberName: string;
 
   @IsString()
@@ -61,6 +52,9 @@ export class CreateDto {
   @IsString()
   readonly playerName: string;
 
+  @IsString()
+  readonly characterName: string;
+
   @IsBoolean()
   readonly disableJackpotGames: boolean;
 
@@ -69,9 +63,6 @@ export class CreateDto {
 
   @IsBoolean()
   readonly disableAward: boolean;
-
-  @IsNumber()
-  readonly appType: number;
 
   @IsNumber()
   readonly gameId: number;

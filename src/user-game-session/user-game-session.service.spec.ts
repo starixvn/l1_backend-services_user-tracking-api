@@ -31,8 +31,6 @@ describe('UserGameSessionService', () => {
       // Arrange
       const inputDto: CreateDto = {
         sessionId: 'tLvCKJxi10nAzekWPLzhbfPduOJwTyYf_ONEworksVGCash_880',
-        username: 'ONEworksVGCash_880',
-        memberId: '880',
         ip: '10.10.50.123',
         browserUserAgent:
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
@@ -44,19 +42,18 @@ describe('UserGameSessionService', () => {
         currencyGroupId: '61b953ad815d6c000196a14c',
         isTestCurrency: true,
         multiplier: 1000,
-        partnerId: 'ONEworksVGCash',
         memberName: 'username_880',
         siteName: 'brian',
         system: 1,
         operatorId: 'ONEworksVGCash',
         playerId: '880',
         playerName: 'username_880',
+        characterName: 'characterName',
         disableJackpotGames: false,
         operatorToken: 'ONEworksVGCashToken',
         disableAward: false,
         gameId: 123,
         gameConfigType: 1,
-        appType: 1,
       };
       const expectedResult = { _id: '68995799e891f7911fbdd6b3', ...inputDto };
       const mockSave = jest.fn().mockResolvedValue(expectedResult);
@@ -74,8 +71,6 @@ describe('UserGameSessionService', () => {
       // Arrange
       const inputDto: CreateDto = {
         sessionId: 'session',
-        username: 'user',
-        memberId: 'member',
         ip: '127.0.0.1',
         browserUserAgent: 'agent',
         siteId: 'site',
@@ -86,19 +81,18 @@ describe('UserGameSessionService', () => {
         currencyGroupId: 'group',
         isTestCurrency: false,
         multiplier: 1,
-        partnerId: 'partner',
         memberName: 'memberName',
         siteName: 'siteName',
         system: 1,
         operatorId: 'operator',
         playerId: 'player',
         playerName: 'playerName',
+        characterName: 'characterName',
         disableJackpotGames: false,
         operatorToken: 'token',
         disableAward: false,
         gameId: 456,
         gameConfigType: 2,
-        appType: 1,
       };
       const mockError = new Error('Database error');
       const mockSave = jest.fn().mockRejectedValue(mockError);

@@ -7,22 +7,16 @@ export class UserGameSession {
   sessionId: string;
 
   @Prop({ required: true })
-  username: string;
-
-  @Prop({ required: true })
-  memberId: string;
-
-  @Prop({ required: true })
   ip: string;
-
-  @Prop({ required: true })
-  browserUserAgent: string;
 
   @Prop({ required: true })
   siteId: string;
 
   @Prop({ required: true })
   userId: string;
+
+  @Prop()
+  browserUserAgent: string;
 
   @Prop({ required: true })
   language: string;
@@ -43,9 +37,6 @@ export class UserGameSession {
   multiplier: number;
 
   @Prop({ required: true })
-  partnerId: string;
-
-  @Prop({ required: true })
   memberName: string;
 
   @Prop({ required: true })
@@ -62,6 +53,9 @@ export class UserGameSession {
 
   @Prop({ required: true })
   playerName: string;
+
+  @Prop({ required: true })
+  characterName: string;
 
   @Prop({ required: true })
   disableJackpotGames: boolean;

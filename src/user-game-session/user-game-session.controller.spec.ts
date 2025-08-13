@@ -29,8 +29,6 @@ describe('UserGameSessionController', () => {
       // Arrange
       const inputDto: CreateDto = {
         sessionId: 'session',
-        username: 'user',
-        memberId: 'member',
         ip: '127.0.0.1',
         browserUserAgent: 'agent',
         siteId: 'site',
@@ -41,19 +39,18 @@ describe('UserGameSessionController', () => {
         currencyGroupId: 'group',
         isTestCurrency: false,
         multiplier: 1,
-        partnerId: 'partner',
         memberName: 'memberName',
         siteName: 'siteName',
         system: 1,
         operatorId: 'operator',
         playerId: 'player',
         playerName: 'playerName',
+        characterName: 'characterName',
         disableJackpotGames: false,
         operatorToken: 'token',
         disableAward: false,
         gameId: 123,
         gameConfigType: 1,
-        appType: 1,
       };
 
       const expectedResponse = {
