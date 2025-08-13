@@ -23,6 +23,8 @@ export class UserGameSessionService {
       createdSession.appType = createDto.system;
       createdSession.signInBalance = createDto.balance ?? 0;
 
+      console.log(createDto);
+
       const savedSession = await createdSession.save();
 
       if (savedSession) {
@@ -48,6 +50,8 @@ export class UserGameSessionService {
 
   async signOut({ updateDto }: { updateDto: UpdateDto }): Promise<boolean> {
     try {
+      console.log(updateDto);
+
       const updatedSession = await this.userGameSessionModel.findOneAndUpdate(
         {
           sessionId: updateDto.sessionId,
