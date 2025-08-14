@@ -59,7 +59,7 @@ export class UserGameSessionService {
           signOutGameTime: { $eq: null },
         },
         { $set: { signOutGameTime: new Date(), signOutBalance: updateDto.balance ?? 0 } },
-        { new: true },
+        { new: true, lean: true, sort: { signInGameTime: -1 } },
       );
 
       if (updatedSession) {
