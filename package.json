@@ -24,9 +24,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prepare": "husky install",
-    "reg": "npm set registry https://npm.lumigame.com",
-    "generate:api-client": "openapi-ts --input http://localhost:5000/api-json --output api-client/src --client @hey-api/client-axios",
-    "generate:api-client:dev": "openapi-ts --input http://localhost:5000/api-json --output api-client/src --client @hey-api/client-axios --watch"
+    "reg": "npm set registry https://npm.lumigame.com"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -56,7 +54,6 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "@hey-api/openapi-ts": "^0.80.8",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
