@@ -32,8 +32,6 @@ export class LoggerService {
       // Capture the exception
       const eventId = Sentry.captureException(exception);
 
-      this.logger.error(`Exception captured by Sentry: ${eventId}`, exception?.stack);
-
       return eventId;
     } catch (error) {
       this.logger.error('Failed to capture exception in Sentry', error);
@@ -55,8 +53,6 @@ export class LoggerService {
       }
 
       const eventId = Sentry.captureMessage(message, level);
-
-      this.logger.log(`Message captured by Sentry: ${eventId} - ${message}`);
 
       return eventId;
     } catch (error) {

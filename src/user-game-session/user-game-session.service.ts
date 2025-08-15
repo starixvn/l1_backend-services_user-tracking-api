@@ -5,9 +5,6 @@ import { UserGameSession, UserGameSessionDocument } from './models/user-game-ses
 import { CreateDto, UpdateDto } from './models/user-game-session.dto';
 import { LoggerService } from '../core/logger/logger.service';
 
-/**
- * Service for user game session business logic.
- */
 @Injectable()
 export class UserGameSessionService {
   constructor(
@@ -23,19 +20,18 @@ export class UserGameSessionService {
       createdSession.appType = createDto.system;
       createdSession.signInBalance = createDto.balance ?? 0;
 
-      console.log(createDto);
-
       const savedSession = await createdSession.save();
 
       if (savedSession) {
         return true;
-      } else {
-        this.loggerService.captureMessage('Failed to save user game session', 'error', {
-          sessionId: createDto.sessionId,
-          gameId: createDto.gameId,
-        });
-        return false;
       }
+
+      this.loggerService.captureMessage('Failed to save user game session', 'warning', {
+        sessionId: createDto.sessionId,
+        gameId: createDto.gameId,
+      });
+
+      return false;
     } catch (error) {
       this.loggerService.captureException(error, {
         operation: 'signIn',
@@ -50,27 +46,17 @@ export class UserGameSessionService {
 
   async signOut({ updateDto }: { updateDto: UpdateDto }): Promise<boolean> {
     try {
-      console.log(updateDto);
-
-      const updatedSession = await this.userGameSessionModel.findOneAndUpdate(
+      const updatedSession = await this.userGameSessionModel.updateMany(
         {
           sessionId: updateDto.sessionId,
           gameId: updateDto.gameId,
           signOutGameTime: { $eq: null },
         },
         { $set: { signOutGameTime: new Date(), signOutBalance: updateDto.balance ?? 0 } },
-        { new: true, lean: true, sort: { signInGameTime: -1 } },
+        { new: true, lean: true },
       );
 
-      if (updatedSession) {
-        return true;
-      } else {
-        this.loggerService.captureMessage('Failed to find session for sign-out', 'error', {
-          sessionId: updateDto.sessionId,
-          gameId: updateDto.gameId,
-        });
-        return false;
-      }
+      return updatedSession ? true : false;
     } catch (error) {
       this.loggerService.captureException(error, {
         operation: 'signOut',
