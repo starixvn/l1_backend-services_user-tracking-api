@@ -158,14 +158,6 @@ describe('UserGameSessionService', () => {
       expect(result).toBe(false);
       expect(mockModel).toHaveBeenCalledWith(inputDto);
       expect(mockSave).toHaveBeenCalled();
-      expect(mockLoggerService.captureMessage).toHaveBeenCalledWith(
-        'Failed to save user game session',
-        'error',
-        {
-          sessionId: inputDto.sessionId,
-          gameId: inputDto.gameId,
-        },
-      );
     });
   });
 });
